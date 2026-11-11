@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>예수님 키우기 — 지혜와 키가 자라가며</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#5a4036;--shell:#e9c9b8;--shell2:#c9998a;--screen:#f0f1e2;--green:#6f8a73;--btn:#e08f7b;--btn2:#b0675a}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+  body{margin:0;font-family:'Gowun Dodum',sans-serif;color:var(--ink);background:linear-gradient(#f7efe4,#f1dcd0);min-height:100vh;display:flex;justify-content:center}
+  .app{width:100%;max-width:440px;padding:14px 14px 24px}
+  header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .logo{width:52px;height:52px;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:3px 3px 0 #d8b8a6;border:2px solid #c99d86}
+  h1{font-family:'Jua';font-size:24px;margin:0;line-height:1.1}
+  .sub{font-size:11px;color:#b07b62;letter-spacing:.5px}
+  .help{margin-left:auto;width:42px;height:42px;border-radius:50%;border:2px solid #dcc0ae;background:#fff;font-family:'Jua';font-size:20px;color:var(--ink)}
+  .shell{background:linear-gradient(#f1d8cb,var(--shell));border-radius:30px;padding:14px 14px 18px;border:3px solid #c9a08f;box-shadow:0 6px 0 #c09382}
+  .shell .top{display:flex;justify-content:space-between;font-size:11px;letter-spacing:2px;font-weight:bold;color:#9a6c5c;padding:2px 6px 10px}
+  .shell .top b{color:#7aa07d}
+  .bezel{background:#8a6c60;border-radius:22px;padding:8px}
+  .screen{background:var(--screen);border-radius:16px;overflow:hidden;border:3px solid #a8b49b}
+  .info{display:flex;align-items:center;gap:10px;padding:10px 12px}
+  .lv{background:var(--green);color:#fff;font-family:'Jua';border-radius:10px;padding:6px 9px;font-size:15px}
+  .nm{font-family:'Jua';font-size:19px;line-height:1.1}
+  .nm small{display:block;font-family:'Gowun Dodum';font-size:12px;color:#8f7a6b}
+  .pts{margin-left:auto;text-align:right;font-size:11px;color:#8f7a6b}
+  .pts b{display:block;font-family:'Jua';font-size:26px;color:var(--ink);line-height:1}
+  .scene{height:270px;position:relative;overflow:hidden;transition:background .6s}
+  .place{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.85);border-radius:14px;padding:4px 10px;font-family:'Jua';font-size:14px;z-index:2}
+  .deco{position:absolute;font-size:26px;opacity:.75}
+  .hero{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:180px;height:216px;transition:filter .3s;filter:drop-shadow(0 6px 6px rgba(0,0,0,.18));cursor:pointer;z-index:1}
+  .hero.tap{animation:tap .18s}
+  .hero.shake{animation:shake .12s infinite}
+  .hero.glow{animation:glow 1s}
+  .hero.sad{animation:sad .8s}
+  @keyframes tap{50%{transform:translate(-50%,-50%) scale(.88,1.08)}}
+  @keyframes shake{0%,100%{transform:translate(-50%,-50%) rotate(-6deg)}50%{transform:translate(-50%,-50%) rotate(6deg)}}
+  @keyframes glow{0%{filter:drop-shadow(0 0 0 gold)}50%{filter:drop-shadow(0 0 30px gold) brightness(1.3);transform:translate(-50%,-50%) scale(1.25)}}
+  @keyframes sad{30%{transform:translate(-50%,-30%) scale(.7);opacity:.3}}
+  .caption{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(255,250,240,.95);border-radius:16px;padding:6px 14px;font-family:'Jua';font-size:14px;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis;z-index:2}
+  .float{position:absolute;font-family:'Jua';font-size:20px;color:#c06a2b;text-shadow:0 1px 0 #fff;animation:up .9s forwards;pointer-events:none;z-index:3}
+  @keyframes up{to{transform:translateY(-70px);opacity:0}}
+  .evo{padding:10px 12px 12px}
+  .evo .row{display:flex;justify-content:space-between;font-family:'Jua';font-size:14px;color:var(--green)}
+  .bar{height:12px;border-radius:8px;background:#dfe3cf;margin:6px 0;overflow:hidden;border:1px solid #c8cfb4}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,#9fc39a,#e8c35d);transition:width .25s}
+  .evo .meta{font-size:12px;color:#8f7a6b;display:flex;justify-content:space-between}
+  .controls{display:flex;align-items:center;gap:14px;margin-top:18px}
+  .dpad{font-size:13px;letter-spacing:3px;color:#9a6c5c;text-align:center;width:80px}
+  .dpad div{font-size:54px;line-height:1;color:#8c6c66;letter-spacing:0}
+  .touch{flex:1;font-family:'Jua';font-size:26px;color:#fff;background:linear-gradient(#eba08c,var(--btn));border:3px solid #f6cdb9;border-radius:40px;padding:16px 0;box-shadow:0 6px 0 var(--btn2);cursor:pointer}
+  .touch:active{transform:translateY(4px);box-shadow:0 2px 0 var(--btn2)}
+  .touch:disabled{opacity:.6}
+  .hint{text-align:center;font-size:12px;color:#9a6c5c;margin-top:8px}
+  .rec{display:flex;justify-content:space-around;margin-top:14px;font-size:12px;color:#9a6c5c;text-align:center}
+  .rec b{display:block;font-family:'Jua';font-size:18px;color:var(--ink)}
+  .modal{position:fixed;inset:0;background:rgba(60,35,25,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:9}
+  .modal.on{display:flex}
+  .box{background:#fffaf3;border-radius:24px;padding:22px;max-width:380px;width:100%;text-align:center;animation:pop .3s}
+  @keyframes pop{from{transform:scale(.8);opacity:0}}
+  .box .big{font-size:64px}
+  .mini{width:130px;height:156px;margin:0 auto}.mini svg,.hero svg{width:100%;height:100%;display:block}
+  .box h2{font-family:'Jua';font-size:22px;margin:6px 0}
+  .box p{line-height:1.6;margin:8px 0;font-size:15px}
+  .verse{background:#fff;border-left:4px solid #e0a35a;border-radius:8px;padding:8px 12px;text-align:left;font-size:14px;margin:10px 0}
+  .ok{font-family:'Jua';font-size:18px;border:none;border-radius:16px;background:var(--btn);color:#fff;padding:12px;width:100%;box-shadow:0 4px 0 var(--btn2);margin-top:6px}
+  .chance{display:inline-block;background:#f3e3cf;border-radius:10px;padding:3px 10px;font-family:'Jua';font-size:14px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">✨</div>
+    <div><h1>예수님 키우기</h1><div class="sub">지혜와 키가 자라가며 · 눅 2:52</div></div>
+    <button class="help" id="help">?</button>
+  </header>
+  <div class="shell">
+    <div class="top"><span>◉ GROWING · v.02</span><b>■■■■ ON</b></div>
+    <div class="bezel"><div class="screen">
+      <div class="info">
+        <span class="lv" id="lv">LV.1</span>
+        <div class="nm" id="nm"></div>
+        <div class="pts">MY 은혜<b id="pts">0</b></div>
+      </div>
+      <div class="scene" id="scene">
+        <span class="place" id="place"></span><div id="decos"></div>
+        <div class="hero" id="hero"></div>
+        <div class="caption" id="cap"></div>
+      </div>
+      <div class="evo">
+        <div class="row"><span>GROWTH</span><span id="need"></span></div>
+        <div class="bar"><i id="bar"></i></div>
+        <div class="meta"><span id="stg"></span><span id="rate"></span></div>
+      </div>
+    </div></div>
+    <div class="controls">
+      <div class="dpad"><div>✚</div>2D LIFE</div>
+      <button class="touch" id="touch">🙌 은혜! 터치</button>
+    </div>
+    <div class="hint" id="hint">터치 1회 +50~200 · 은혜가 다 차면 자동 성장 도전!</div>
+  </div>
+  <div class="rec">
+    <div>최고 단계<b id="best">-</b></div>
+    <div>도루묵 횟수<b id="fails">0</b></div>
+    <div>요단강 도착<b id="clears">0</b></div>
+  </div>
+</div>
+<div class="modal" id="modal"><div class="box" id="box"></div></div>
+
+<script>
+const ST=[
+ {name:"아기 예수님",place:"🌟 베들레헴 말구유",hero:"👶",need:300,rate:.8,bg:"linear-gradient(#2b3a67,#6a5d9e 60%,#d9c29a)",deco:["⭐|10%|22%","⭐|84%|16%","🐑|8%|70%","🐄|80%|68%"],
+  lines:["강보에 싸여 새근새근 자요","목자들이 찾아와 경배했어요","동방박사들이 별을 따라 왔어요","마리아가 따뜻하게 안아주어요"]},
+ {name:"어린이 예수님",place:"🏡 나사렛 마을",hero:"🧒",need:500,rate:.65,bg:"linear-gradient(#9ed3f0,#d8f0ff 55%,#c9dd9a)",deco:["☀️|82%|10%","🌳|6%|50%","🌼|20%|78%","🐓|80%|72%"],
+  lines:["들판에서 뛰어놀아요","무화과를 맛있게 먹어요","어머니의 물 긷기를 도와요","친구들과 사이좋게 놀아요"]},
+ {name:"열두 살 예수님",place:"🏛️ 예루살렘 성전",hero:"👦",need:800,rate:.5,bg:"linear-gradient(#f5d9a8,#fbeed2 60%,#d9b98a)",deco:["🏛️|6%|46%","🕊️|80%|16%","📜|82%|70%","🕯️|12%|76%"],
+  lines:["선생님들과 말씀을 나눠요","모두가 지혜에 놀랐어요","\"내 아버지 집에 있어야죠\"","부모님께 순종하며 내려가요"]},
+ {name:"청년 목수 예수님",place:"🪵 나사렛 목공소",hero:"🧑",need:1200,rate:.4,bg:"linear-gradient(#e7c9a1,#f6e6cf 60%,#b98f63)",deco:["🪵|6%|70%","🔨|82%|68%","🪑|10%|36%","🌅|80%|10%"],
+  lines:["요셉과 의자를 만들어요","이웃집 문을 고쳐줘요","새벽마다 기도하러 가요","성실하게 일하며 자라요"]},
+ {name:"서른 살 예수님",place:"🌊 요단강",hero:"🧔",need:0,rate:0,bg:"linear-gradient(#a9d8ef,#e6f6ff 55%,#9fc7a8)",deco:["🕊️|46%|8%","🌿|6%|70%","💧|84%|72%","☁️|14%|12%"],lines:["공생애가 시작돼요 ✨"]}
+];
+function fig(lv,u){
+ const D=`<defs>
+ <radialGradient id="sk${u}" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#f3cfa6"/><stop offset=".65" stop-color="#d9a275"/><stop offset="1" stop-color="#b47a50"/></radialGradient>
+ <linearGradient id="rb${u}" x1="0" x2="1"><stop offset="0" stop-color="#fdf9ef"/><stop offset=".55" stop-color="#ece2cc"/><stop offset="1" stop-color="#c8b796"/></linearGradient>
+ <linearGradient id="tn${u}" x1="0" x2="1"><stop offset="0" stop-color="#e3cfa9"/><stop offset=".6" stop-color="#cdb084"/><stop offset="1" stop-color="#a68a60"/></linearGradient>
+ <linearGradient id="mt${u}" x1="0" x2="1"><stop offset="0" stop-color="#7f9cc6"/><stop offset=".5" stop-color="#4f6f9f"/><stop offset="1" stop-color="#2f4a75"/></linearGradient>
+ <linearGradient id="hr${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b4529"/><stop offset="1" stop-color="#3b2415"/></linearGradient>
+ <linearGradient id="wd${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a87547"/><stop offset="1" stop-color="#6e4526"/></linearGradient>
+ <radialGradient id="hl${u}"><stop offset=".55" stop-color="#fff2c4" stop-opacity="0"/><stop offset=".78" stop-color="#ffe08a" stop-opacity=".75"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>
+ </defs>`;
+ const f=n=>Math.round(n*10)/10;
+ function face(cx,cy,r,o={}){
+  const ey=cy+r*.08,ex=r*.37;let s="";
+  s+=`<ellipse cx="${f(cx-r*.95)}" cy="${f(cy+r*.12)}" rx="${f(r*.16)}" ry="${f(r*.22)}" fill="#c98c60"/><ellipse cx="${f(cx+r*.95)}" cy="${f(cy+r*.12)}" rx="${f(r*.16)}" ry="${f(r*.22)}" fill="#c98c60"/>`;
+  s+=`<ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${f(r*(o.oval?1.12:1.02))}" fill="url(#sk${u})"/>`;
+  s+=`<ellipse cx="${f(cx-r*.55)}" cy="${f(cy+r*.36)}" rx="${f(r*.2)}" ry="${f(r*.11)}" fill="#e57f6c" opacity=".28"/><ellipse cx="${f(cx+r*.55)}" cy="${f(cy+r*.36)}" rx="${f(r*.2)}" ry="${f(r*.11)}" fill="#e57f6c" opacity=".28"/>`;
+  for(const x of [cx-ex,cx+ex]){
+   if(o.sleep){s+=`<path d="M${f(x-r*.15)} ${f(ey)} Q${f(x)} ${f(ey+r*.11)} ${f(x+r*.15)} ${f(ey)}" stroke="#4a2c1a" stroke-width="${f(r*.045)}" fill="none" stroke-linecap="round"/>`;continue}
+   s+=`<ellipse cx="${f(x)}" cy="${f(ey)}" rx="${f(r*.16)}" ry="${f(r*.1)}" fill="#fffaf4"/><circle cx="${f(x)}" cy="${f(ey+r*.01)}" r="${f(r*.088)}" fill="#6a4226"/><circle cx="${f(x)}" cy="${f(ey+r*.01)}" r="${f(r*.048)}" fill="#1c0f07"/><circle cx="${f(x+r*.035)}" cy="${f(ey-r*.025)}" r="${f(r*.024)}" fill="#fff"/>`;
+   s+=`<path d="M${f(x-r*.18)} ${f(ey-r*.01)} Q${f(x)} ${f(ey-r*.15)} ${f(x+r*.18)} ${f(ey-r*.02)}" stroke="#3a2214" stroke-width="${f(r*.04)}" fill="none" stroke-linecap="round"/>`;
+   s+=`<path d="M${f(x-r*.18)} ${f(ey-r*.24)} Q${f(x)} ${f(ey-r*.33)} ${f(x+r*.19)} ${f(ey-r*.23)}" stroke="#4a2c1a" stroke-width="${f(r*.055)}" fill="none" stroke-linecap="round" opacity=".85"/>`;
+  }
+  s+=`<path d="M${f(cx-r*.02)} ${f(cy+r*.14)} Q${f(cx+r*.1)} ${f(cy+r*.33)} ${f(cx-r*.07)} ${f(cy+r*.37)}" stroke="#a5653f" stroke-width="${f(r*.035)}" fill="none" opacity=".7" stroke-linecap="round"/>`;
+  s+=`<path d="M${f(cx-r*.16)} ${f(cy+r*.53)} Q${cx} ${f(cy+r*.63)} ${f(cx+r*.16)} ${f(cy+r*.53)}" stroke="#9b4b3a" stroke-width="${f(r*.045)}" fill="none" stroke-linecap="round"/>`;
+  return s;
+ }
+ function hairShort(cx,cy,r){
+  let s=`<path d="M${f(cx-r*1.04)} ${f(cy+r*.05)} Q${f(cx-r*1.08)} ${f(cy-r*1.2)} ${cx} ${f(cy-r*1.14)} Q${f(cx+r*1.08)} ${f(cy-r*1.2)} ${f(cx+r*1.04)} ${f(cy+r*.05)} Q${f(cx+r*.85)} ${f(cy-r*.5)} ${f(cx+r*.3)} ${f(cy-r*.62)} Q${cx} ${f(cy-r*.45)} ${f(cx-r*.35)} ${f(cy-r*.6)} Q${f(cx-r*.85)} ${f(cy-r*.5)} ${f(cx-r*1.04)} ${f(cy+r*.05)}Z" fill="url(#hr${u})"/>`;
+  for(let a=-150;a<=-30;a+=20){const t=a*Math.PI/180;s+=`<circle cx="${f(cx+Math.cos(t)*r*.95)}" cy="${f(cy+Math.sin(t)*r*1.02)}" r="${f(r*.24)}" fill="#55361f"/>`}
+  return s;
+ }
+ function hairLongBack(cx,cy,r){return `<path d="M${f(cx-r*1.05)} ${f(cy-r*.3)} Q${f(cx-r*1.35)} ${f(cy+r*1.2)} ${f(cx-r*1.1)} ${f(cy+r*1.95)} L${f(cx+r*1.1)} ${f(cy+r*1.95)} Q${f(cx+r*1.35)} ${f(cy+r*1.2)} ${f(cx+r*1.05)} ${f(cy-r*.3)}Z" fill="url(#hr${u})"/>`}
+ function hairLongFront(cx,cy,r){return `<path d="M${f(cx-r*1.08)} ${f(cy+r*.9)} Q${f(cx-r*1.2)} ${f(cy-r*1.25)} ${cx} ${f(cy-r*1.16)} Q${f(cx+r*1.2)} ${f(cy-r*1.25)} ${f(cx+r*1.08)} ${f(cy+r*.9)} Q${f(cx+r*.95)} ${f(cy-r*.1)} ${f(cx+r*.75)} ${f(cy-r*.45)} Q${f(cx+r*.4)} ${f(cy-r*.85)} ${f(cx+r*.04)} ${f(cy-r*.88)} L${f(cx-r*.04)} ${f(cy-r*.88)} Q${f(cx-r*.4)} ${f(cy-r*.85)} ${f(cx-r*.75)} ${f(cy-r*.45)} Q${f(cx-r*.95)} ${f(cy-r*.1)} ${f(cx-r*1.08)} ${f(cy+r*.9)}Z" fill="url(#hr${u})"/><path d="M${f(cx-r*.5)} ${f(cy-r*.85)} Q${f(cx-r*.9)} ${f(cy-r*.3)} ${f(cx-r*.98)} ${f(cy+r*.6)}M${f(cx+r*.5)} ${f(cy-r*.85)} Q${f(cx+r*.9)} ${f(cy-r*.3)} ${f(cx+r*.98)} ${f(cy+r*.6)}" stroke="#8a5d3b" stroke-width="${f(r*.05)}" fill="none" opacity=".6"/>`}
+ function beard(cx,cy,r,op){return `<g opacity="${op}"><path d="M${f(cx-r*.97)} ${f(cy+r*.1)} Q${f(cx-r*.95)} ${f(cy+r*1.2)} ${cx} ${f(cy+r*1.38)} Q${f(cx+r*.95)} ${f(cy+r*1.2)} ${f(cx+r*.97)} ${f(cy+r*.1)} Q${f(cx+r*.7)} ${f(cy+r*.8)} ${f(cx+r*.25)} ${f(cy+r*.7)} Q${cx} ${f(cy+r*.78)} ${f(cx-r*.25)} ${f(cy+r*.7)} Q${f(cx-r*.7)} ${f(cy+r*.8)} ${f(cx-r*.97)} ${f(cy+r*.1)}Z" fill="url(#hr${u})"/><path d="M${f(cx-r*.3)} ${f(cy+r*.5)} Q${cx} ${f(cy+r*.37)} ${f(cx+r*.3)} ${f(cy+r*.5)} Q${f(cx+r*.15)} ${f(cy+r*.47)} ${cx} ${f(cy+r*.47)} Q${f(cx-r*.15)} ${f(cy+r*.47)} ${f(cx-r*.3)} ${f(cy+r*.5)}Z" fill="#4a2c1a"/></g>`}
+ if(lv===0){
+  let s=D+`<circle cx="70" cy="128" r="58" fill="url(#hl${u})"/>`;
+  s+=`<path d="M22 170 L178 170 L162 214 L38 214Z" fill="url(#wd${u})"/><path d="M30 214 L22 236M170 214 L178 236" stroke="#5d3a1f" stroke-width="8" stroke-linecap="round"/>`;
+  for(let i=0;i<16;i++){const x=28+i*9.5;s+=`<path d="M${x} 172 L${x+(i%2?10:-8)} ${156+(i%3)*4}" stroke="#e2bf5c" stroke-width="3" stroke-linecap="round"/>`}
+  s+=`<path d="M60 170 Q50 128 92 118 L150 120 Q178 132 170 160 Q160 178 110 178 Q72 178 60 170Z" fill="url(#rb${u})" stroke="#c3b18f" stroke-width="1.5"/>`;
+  s+=`<path d="M92 122 Q120 150 104 176M118 120 Q146 146 132 176M142 124 Q166 146 156 170" stroke="#cdbb98" stroke-width="2" fill="none"/>`;
+  s+=face(72,132,26,{sleep:true});
+  s+=`<path d="M48 124 Q52 100 76 104 Q94 106 96 122 Q84 112 72 114 Q58 112 48 124Z" fill="#6b4529" opacity=".8"/>`;
+  s+=`<path d="M46 140 Q44 108 72 104 Q100 102 100 132 Q104 116 96 106 Q84 92 66 96 Q42 104 46 140Z" fill="#f5efe2" stroke="#d8c8a8" stroke-width="1.5"/>`;
+  return `<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+ }
+ const P=[null,{r:31,hy:68,sh:106,hem:204,w:76,hair:"s",tunic:1},{r:28,hy:56,sh:92,hem:210,w:84,hair:"s",tunic:0,prop:"scroll",sash:"#a5452f"},{r:25,hy:46,sh:78,hem:214,w:94,hair:"l",beard:.55,tunic:1,prop:"plank",sash:"#6e4a2c"},{r:25,hy:46,sh:78,hem:214,w:96,hair:"l",beard:1,tunic:0,mantle:1,sash:"#a5452f"}][lv];
+ const cx=100,{r,hy,sh,hem,w}=P,rob=P.tunic?`url(#tn${u})`:`url(#rb${u})`;
+ let s=D+`<ellipse cx="100" cy="${hem+12}" rx="${w*.55}" ry="6" fill="#000" opacity=".15"/><circle cx="${cx}" cy="${hy}" r="${r*1.75}" fill="url(#hl${u})"/>`;
+ if(P.hair==="l")s+=hairLongBack(cx,hy,r);
+ const wy=sh+(hem-sh)*.36;
+ s+=`<path d="M${cx-w*.42} ${hem} L${cx-w*.38} ${hem+10} M${cx+w*.38} ${hem+10} L${cx+w*.42} ${hem}" stroke="none"/>`;
+ s+=`<ellipse cx="${cx-w*.18}" cy="${hem+8}" rx="9" ry="4.5" fill="#6e4526"/><ellipse cx="${cx+w*.18}" cy="${hem+8}" rx="9" ry="4.5" fill="#6e4526"/>`;
+ s+=`<rect x="${cx-r*.28}" y="${hy+r*.8}" width="${r*.56}" height="${sh-hy-r*.6}" rx="4" fill="#c48a5f"/>`;
+ s+=`<path d="M${cx-w*.32} ${sh} Q${cx-w*.5} ${sh+6} ${cx-w*.52} ${sh+22} L${cx-w*.6} ${hem} Q${cx} ${hem+8} ${cx+w*.6} ${hem} L${cx+w*.52} ${sh+22} Q${cx+w*.5} ${sh+6} ${cx+w*.32} ${sh} Q${cx} ${sh-6} ${cx-w*.32} ${sh}Z" fill="${rob}" stroke="#b09a76" stroke-width="1.2"/>`;
+ s+=`<path d="M${cx-r*.36} ${sh-2} Q${cx} ${sh+r*.55} ${cx+r*.36} ${sh-2}" fill="#b98157" stroke="#a6896a" stroke-width="1.2"/>`;
+ s+=`<path d="M${cx-w*.2} ${wy+8} Q${cx-w*.24} ${(wy+hem)/2} ${cx-w*.3} ${hem-2}M${cx+w*.1} ${wy+8} Q${cx+w*.14} ${(wy+hem)/2} ${cx+w*.18} ${hem}M${cx-w*.02} ${wy+8} L${cx-w*.04} ${hem}" stroke="#a89372" stroke-width="1.4" fill="none" opacity=".6"/>`;
+ s+=`<path d="M${cx+w*.06} ${sh+4} L${cx+w*.06} ${wy-4}" stroke="${P.sash||'#8b6a45'}" stroke-width="3" opacity=".7"/>`;
+ s+=`<path d="M${cx-w*.5} ${wy-5} Q${cx} ${wy+5} ${cx+w*.5} ${wy-5} L${cx+w*.5} ${wy+5} Q${cx} ${wy+15} ${cx-w*.5} ${wy+5}Z" fill="${P.sash||'#8b6a45'}"/>`;
+ if(P.mantle)s+=`<path d="M${cx-w*.36} ${sh-2} Q${cx-w*.62} ${sh+40} ${cx-w*.58} ${hem-4} Q${cx-w*.2} ${hem+6} ${cx+w*.2} ${hem-30} Q${cx+w*.05} ${wy+10} ${cx-w*.1} ${wy-10} Q${cx-w*.2} ${sh+20} ${cx-w*.12} ${sh}Z" fill="url(#mt${u})"/><path d="M${cx-w*.45} ${sh+30} Q${cx-w*.4} ${wy+30} ${cx-w*.3} ${hem-10}" stroke="#2a3f63" stroke-width="2" fill="none" opacity=".5"/>`;
+ const ay=sh+(hem-sh)*.42;
+ if(P.prop==="scroll"){
+  s+=`<path d="M${cx-w*.5} ${sh+16} Q${cx-w*.4} ${ay} ${cx-w*.12} ${ay+6}M${cx+w*.5} ${sh+16} Q${cx+w*.4} ${ay} ${cx+w*.12} ${ay+6}" stroke="${rob}" stroke-width="15" stroke-linecap="round" fill="none"/>`;
+  s+=`<rect x="${cx-w*.26}" y="${ay-6}" width="${w*.52}" height="22" rx="3" fill="#f3e4bf" stroke="#c9ad74"/><rect x="${cx-w*.3}" y="${ay-9}" width="8" height="28" rx="4" fill="#8a5a33"/><rect x="${cx+w*.3-8}" y="${ay-9}" width="8" height="28" rx="4" fill="#8a5a33"/>`;
+  s+=`<path d="M${cx-w*.18} ${ay} H${cx+w*.16} M${cx-w*.18} ${ay+5} H${cx+w*.1} M${cx-w*.18} ${ay+10} H${cx+w*.14}" stroke="#b49a6a" stroke-width="1.5"/>`;
+  s+=`<circle cx="${cx-w*.14}" cy="${ay+9}" r="7" fill="url(#sk${u})"/><circle cx="${cx+w*.14}" cy="${ay+9}" r="7" fill="url(#sk${u})"/>`;
+ }else if(P.prop==="plank"){
+  s+=`<path d="M${cx-w*.5} ${sh+16} Q${cx-w*.56} ${ay} ${cx-w*.5} ${ay+28}" stroke="${rob}" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="${cx-w*.5}" cy="${ay+32}" r="7" fill="url(#sk${u})"/>`;
+  s+=`<g transform="rotate(-62 ${cx+w*.55} ${ay})"><rect x="${cx+w*.55-48}" y="${ay-6}" width="96" height="13" rx="2" fill="url(#wd${u})"/><path d="M${cx+w*.55-40} ${ay} H${cx+w*.55+40}" stroke="#5a381d" stroke-width="1" opacity=".5"/></g>`;
+  s+=`<path d="M${cx+w*.5} ${sh+16} Q${cx+w*.62} ${ay-6} ${cx+w*.52} ${ay+4}" stroke="${rob}" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="${cx+w*.52}" cy="${ay+6}" r="7" fill="url(#sk${u})"/>`;
+ }else{
+  const open=lv===4;
+  s+=`<path d="M${cx-w*.5} ${sh+16} Q${cx-w*.6} ${ay} ${cx-w*(open?.62:.5)} ${ay+(open?10:28)}M${cx+w*.5} ${sh+16} Q${cx+w*.6} ${ay} ${cx+w*(open?.62:.5)} ${ay+(open?10:28)}" stroke="${rob}" stroke-width="15" stroke-linecap="round" fill="none"/>`;
+  s+=`<circle cx="${cx-w*(open?.66:.5)}" cy="${ay+(open?14:32)}" r="7" fill="url(#sk${u})"/><circle cx="${cx+w*(open?.66:.5)}" cy="${ay+(open?14:32)}" r="7" fill="url(#sk${u})"/>`;
+ }
+ s+=face(cx,hy,r,{oval:P.hair==="l"});
+ if(P.beard)s+=beard(cx,hy,r,P.beard);
+ s+=P.hair==="l"?hairLongFront(cx,hy,r):hairShort(cx,hy,r);
+ return `<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+}
+
+const $=id=>document.getElementById(id);
+let S, busy=false;
+function fresh(){return{lv:0,p:0,best:0,fails:0,clears:0,seen:false}}
+function save(){try{localStorage.setItem("jesus-luck",JSON.stringify(S))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem("jesus-luck"));if(s&&"lv" in s)return s}catch(e){}return null}
+function render(){
+  const g=ST[S.lv];
+  $("scene").style.background=g.bg;$("place").textContent=g.place;$("hero").innerHTML=fig(S.lv,"h");
+  $("decos").innerHTML=g.deco.map(d=>{const[e,x,y]=d.split("|");return`<span class="deco" style="left:${x};top:${y}">${e}</span>`}).join("");
+  $("lv").textContent="LV."+(S.lv+1);
+  $("nm").innerHTML=`${g.name}<small>${g.place.slice(2)}</small>`;
+  $("pts").textContent=S.p;
+  const last=S.lv>=ST.length-1;
+  $("need").textContent=last?"성장 완료!":`다음 성장까지 ${Math.max(0,g.need-S.p)}P`;
+  $("bar").style.width=last?"100%":Math.min(100,S.p/g.need*100)+"%";
+  $("stg").textContent=g.hero+" "+g.name;
+  $("rate").textContent=last?"":`성공 확률 ${Math.round(g.rate*100)}%`;
+  $("best").textContent=ST[S.best].hero+" LV."+(S.best+1);
+  $("fails").textContent=S.fails;$("clears").textContent=S.clears;
+  $("touch").disabled=busy||last;
+}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function cap(t){$("cap").textContent=t}
+function anim(cls){const h=$("hero");h.className="hero";void h.offsetWidth;if(cls)h.classList.add(cls)}
+function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+function floatText(t,x,y){const f=document.createElement("div");f.className="float";f.textContent=t;f.style.left=x+"px";f.style.top=y+"px";$("scene").appendChild(f);setTimeout(()=>f.remove(),900)}
+function modal(h){$("box").innerHTML=h;$("modal").classList.add("on")}
+function shut(){$("modal").classList.remove("on")}
+function touch(e){
+  if(busy||S.lv>=ST.length-1)return;
+  const g=ST[S.lv];
+  const add=50+Math.floor(Math.random()*16)*10;
+  S.p+=add;anim("tap");buzz(15);
+  const r=$("scene").getBoundingClientRect();
+  floatText("+"+add,r.width/2-20+(Math.random()*80-40),r.height/2-60);
+  cap(pick(g.lines));
+  if(S.p>=g.need){S.p=g.need;challenge()}
+  save();render();
+}
+function challenge(){
+  busy=true;render();
+  const g=ST[S.lv];
+  cap("✨ 성장 도전 중… 두근두근");anim("shake");buzz([30,60,30,60,30]);
+  setTimeout(()=>{
+    if(Math.random()<g.rate){
+      S.lv++;S.p=0;S.best=Math.max(S.best,S.lv);
+      render();anim("glow");buzz(200);
+      const n=ST[S.lv];
+      if(S.lv>=ST.length-1){S.clears++;save();render();return ending()}
+      cap("🎉 성장 성공!");
+      modal(`<div class="mini">${fig(S.lv,"m")}</div><h2>성장 성공! 🎉</h2><p><b>${n.name}</b>(으)로 자라셨어요!</p><p>장소: ${n.place}</p><span class="chance">다음 성공 확률 ${Math.round(n.rate*100)}%</span><button class="ok" id="ok">계속 터치!</button>`);
+    }else{
+      const from=g;
+      anim("sad");buzz([300]);
+      S.fails++;S.lv=0;S.p=0;
+      setTimeout(()=>{render();cap("앗… 다시 베들레헴부터 😅")},400);
+      modal(`<div class="big">🫠</div><h2>앗! 도루묵…</h2><p>${from.name}에서 아쉽게 실패!<br>다시 베들레헴 말구유부터 시작해요.</p><p style="font-size:13px;color:#9a6c5c">괜찮아요, 다시 하면 돼요!</p><button class="ok" id="ok">다시 도전</button>`);
+    }
+    $("ok").onclick=()=>{shut();busy=false;save();render()};
+    save();
+  },1400);
+}
+function ending(){
+  modal(`<div class="big">🕊️</div><h2>요단강에 도착했어요!</h2><p>세례를 받으시자 하늘이 열리고 성령이 비둘기같이 내려왔어요.</p><div class="verse">"너는 내 사랑하는 아들이요 내가 너를 기뻐하노라" (막 1:11)</div><div class="verse">예수는 지혜와 키가 자라가며 하나님과 사람에게 더욱 사랑스러워 가시더라 (눅 2:52)</div><p>도루묵 ${S.fails}번을 이겨내고 완주! 🎉</p><button class="ok" id="ok">처음부터 다시</button>`);
+  $("ok").onclick=()=>{shut();S.lv=0;S.p=0;busy=false;save();render();cap("다시 베들레헴에서 시작해요 🌟")};
+}
+function help(){
+  modal(`<div class="big">✨</div><h2>이렇게 놀아요</h2><p>🙌 <b>은혜! 터치</b>를 누르면 은혜가 50~200P씩 모여요.</p><p>은혜가 다 차면 <b>자동으로 성장 도전!</b><br>성공하면 다음 단계로, 실패하면 <b>도루묵</b>(아기부터 다시)!</p><p style="font-size:14px">👶 80% → 🧒 65% → 👦 50% → 🧑 40% → 🧔 요단강</p><button class="ok" id="ok">시작!</button>`);
+  $("ok").onclick=()=>{shut()};
+}
+$("touch").onclick=touch;$("hero").onclick=touch;$("help").onclick=help;
+S=load()||fresh();busy=false;render();
+cap(S.lv>=ST.length-1?ST[S.lv].lines[0]:pick(ST[S.lv].lines));
+if(S.lv>=ST.length-1)ending();
+else if(!S.seen){S.seen=true;save();help()}
+</script>
+</body>
+</html>
